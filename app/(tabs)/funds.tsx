@@ -13,12 +13,12 @@ export default function FundsScreen() {
   const tabs: Tab[] = [
     {
       key: "FundLimitsScreen",
-      label: "FUND/LIMITS",
+      label: "Fund/Limits",
       content: <FundLimitsScreen />,
     },
     {
       key: "TransactionHistory",
-      label: "TRANSACTION HISTORY",
+      label: "Transaction History",
       content: <TransactionHistory />,
     },
   ];

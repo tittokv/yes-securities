@@ -104,13 +104,13 @@ const styles = StyleSheet.create({
 
   positionMainCardTitle: {
     color: "#969494ff",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeights.bold,
   },
 
   positionMainCardAmount: {
     color: "#ef4949ff",
-    fontSize: 22,
+    fontSize: 19,
     fontWeight: FontWeights.bold,
     marginTop: 5,
   },
