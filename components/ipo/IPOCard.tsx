@@ -1,189 +1,177 @@
 import { AnimatedCard } from '@/components/ui/AnimatedCard';
 import { StatusBadge } from '@/components/ui/StatusBadge';
-import { Colors } from '@/constants/colors';
-import { BorderRadius, FontSizes, FontWeights, Spacing } from '@/constants/typography';
-import { IPOApplication } from '@/types/ipo';
+import { Colors, GradientColors } from '@/constants/colors';
+import { BorderRadius, FontSizes, FontWeights, Shadows, Spacing } from '@/constants/typography';
+import { StockItem } from '@/types/ipo';
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { useState } from 'react';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 
 interface IPOCardProps {
-    application: IPOApplication;
+    stock: StockItem;
 }
 
-export function IPOCard({ application }: IPOCardProps) {
-    const { statusColor, statusBgColor, statusIcon } = getStatusStyles(application.status);
-
+export function IPOCard({ stock }: IPOCardProps) {
+    const [scaleAnim] = useState(new Animated.Value(1));
     return (
-        <AnimatedCard>
-            <View style={styles.header}>
-                <View style={styles.companyContainer}>
-                    <View style={[styles.companyIcon, { backgroundColor: statusBgColor }]}>
-                        <Text style={[styles.companyInitial, { color: statusColor }]}>
-                            {application.companyName.charAt(0)}
-                        </Text>
-                    </View>
-                    <View style={styles.companyInfo}>
-                        <Text style={styles.companyName} numberOfLines={1}>
-                            {application.companyName}
-                        </Text>
-                        <Text style={styles.applicationNumber}>{application.applicationNumber}</Text>
-                    </View>
-                </View>
 
-                <StatusBadge
-                    status={application.status}
-                    icon={statusIcon}
-                    color={statusColor}
-                    backgroundColor={statusBgColor}
-                />
-            </View>
-
-            <View style={styles.divider} />
-
-            <View style={styles.detailsGrid}>
-                <DetailItem label="Bid Price" value={`₹ ${application.bidPrice}`} />
-                <DetailItem label="Quantity" value={application.quantity.toString()} />
-                <DetailItem label="Total Amount" value={`₹ ${application.totalAmount.toLocaleString('en-IN')}`} />
-                <DetailItem
-                    label="Applied Date"
-                    value={new Date(application.appliedDate).toLocaleDateString('en-IN', {
-                        day: '2-digit',
-                        month: 'short',
-                        year: 'numeric',
-                    })}
-                />
-            </View>
-
-            {application.status === 'Allotted' && application.allottedQuantity > 0 && (
-                <View style={styles.allotmentInfo}>
-                    <Ionicons name="gift-outline" size={18} color={Colors.success} />
-                    <Text style={styles.allotmentText}>
-                        Allotted: <Text style={styles.allotmentValue}>{application.allottedQuantity} shares</Text>
+        <View key={stock.id} style={styles.stockCard}>
+            <View style={styles.stockHeader}>
+                <View style={styles.stockTitleContainer}>
+                    <Text style={styles.stockName}>{stock.name}</Text>
+                    <Text style={styles.stockMeta}>
+                        Avg. Price {stock.avgPrice.toFixed(2)} • Qty: {stock.quantity}
                     </Text>
                 </View>
-            )}
-        </AnimatedCard>
-    );
-}
+            </View>
 
-function DetailItem({ label, value }: { label: string; value: string }) {
-    return (
-        <View style={styles.detailItem}>
-            <Text style={styles.detailLabel}>{label}</Text>
-            <Text style={styles.detailValue}>{value}</Text>
+            <View style={styles.stockDetails}>
+                <View style={styles.stockDetailItem}>
+                    <Text style={styles.detailLabel}>Invested</Text>
+                    <Text style={styles.detailValue}>₹{stock.invested.toFixed(2)}</Text>
+                </View>
+
+                <View style={styles.stockDetailItem}>
+                    <Text style={styles.detailLabel}>Current</Text>
+                    <Text style={styles.detailValue}>₹{stock.current.toFixed(2)}</Text>
+                </View>
+
+                <View style={styles.stockDetailItem}>
+                    <Text style={styles.detailLabel}>Profit/Loss</Text>
+                    <View style={styles.plContainer}>
+                        <Text style={[styles.detailValue, styles.lossText]}>
+                            ₹{stock.profitLoss.toFixed(2)}
+                        </Text>
+                        <Text style={[styles.plPercent, styles.lossText]}>
+                            {stock.profitLossPercent.toFixed(2)}%
+                        </Text>
+                    </View>
+                </View>
+            </View>
         </View>
     );
 }
 
-function getStatusStyles(status: string) {
-    switch (status) {
-        case 'Allotted':
-            return {
-                statusColor: Colors.success,
-                statusBgColor: 'rgba(16, 185, 129, 0.15)',
-                statusIcon: 'checkmark-circle',
-            };
-        case 'Applied':
-            return {
-                statusColor: Colors.warning,
-                statusBgColor: 'rgba(245, 158, 11, 0.15)',
-                statusIcon: 'time',
-            };
-        case 'Rejected':
-            return {
-                statusColor: Colors.error,
-                statusBgColor: 'rgba(239, 68, 68, 0.15)',
-                statusIcon: 'close-circle',
-            };
-        default:
-            return {
-                statusColor: Colors.text.secondary,
-                statusBgColor: 'rgba(100, 116, 139, 0.15)',
-                statusIcon: 'help-circle',
-            };
-    }
-}
+
+
+
 
 const styles = StyleSheet.create({
-    header: {
+    wrapper: {
+        flex: 1,
+    },
+    container: {
+        flex: 1,
+        paddingHorizontal: Spacing.lg,
+    },
+    summaryCard: {
+        backgroundColor: Colors.white,
+        borderRadius: BorderRadius.xl,
+        overflow: 'hidden',
+        marginBottom: Spacing.lg,
+        ...Shadows.large,
+    },
+    summaryGradient: {
+        padding: Spacing.xl,
+    },
+    summaryRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        marginBottom: Spacing.md,
-    },
-    companyContainer: {
-        flexDirection: 'row',
         alignItems: 'center',
-        gap: Spacing.md,
-        flex: 1,
+        paddingVertical: Spacing.sm,
     },
-    companyIcon: {
-        width: 48,
-        height: 48,
-        borderRadius: BorderRadius.md,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    companyInitial: {
-        fontSize: FontSizes['2xl'],
-        fontWeight: FontWeights.bold,
-    },
-    companyInfo: {
-        flex: 1,
-    },
-    companyName: {
-        fontSize: FontSizes.lg,
-        fontWeight: FontWeights.bold,
-        color: Colors.text.primary,
-        marginBottom: 4,
-        letterSpacing: 0.2,
-    },
-    applicationNumber: {
-        fontSize: FontSizes.xs,
+    summaryLabel: {
+        fontSize: FontSizes.base,
         color: Colors.text.secondary,
-        fontWeight: FontWeights.semibold,
+        fontWeight: FontWeights.medium,
+    },
+    summaryValue: {
+        fontSize: FontSizes.lg,
+        color: Colors.text.primary,
+        fontWeight: FontWeights.bold,
+    },
+    summaryRight: {
+        alignItems: 'flex-end',
     },
     divider: {
         height: 1,
-        backgroundColor: Colors.border.medium,
-        marginBottom: Spacing.lg,
+        backgroundColor: Colors.border.primary,
+        marginVertical: Spacing.xs,
     },
-    detailsGrid: {
+    lossText: {
+        color: '#ef4444',
+    },
+    percentText: {
+        fontSize: FontSizes.sm,
+        fontWeight: FontWeights.semibold,
+        marginTop: 2,
+    },
+    todayPLContainer: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: Spacing.lg,
+        alignItems: 'center',
+        backgroundColor: '#fee2e2',
+        paddingVertical: Spacing.md,
+        paddingHorizontal: Spacing.lg,
+        gap: Spacing.sm,
     },
-    detailItem: {
-        width: '47%',
+    todayPLText: {
+        fontSize: FontSizes.base,
+        color: '#ef4444',
+        fontWeight: FontWeights.bold,
+    },
+  
+    stockCard: {
+        backgroundColor: Colors.white,
+        borderRadius: BorderRadius.lg,
+        padding: Spacing.lg,
+        ...Shadows.medium,
+        borderLeftWidth: 4,
+        borderLeftColor: '#667eea',
+    },
+    stockHeader: {
+        marginBottom: Spacing.md,
+    },
+    stockTitleContainer: {
+        gap: Spacing.xs,
+    },
+    stockName: {
+        fontSize: FontSizes.lg,
+        fontWeight: FontWeights.bold,
+        color: Colors.text.primary,
+    },
+    stockMeta: {
+        fontSize: FontSizes.sm,
+        color: Colors.text.tertiary,
+        fontWeight: FontWeights.medium,
+    },
+    stockDetails: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingTop: Spacing.md,
+        borderTopWidth: 1,
+        borderTopColor: Colors.border.primary,
+    },
+    stockDetailItem: {
+        flex: 1,
+        gap: Spacing.xs,
     },
     detailLabel: {
         fontSize: FontSizes.xs,
         color: Colors.text.secondary,
-        fontWeight: FontWeights.semibold,
-        marginBottom: 4,
+        fontWeight: FontWeights.medium,
+        textTransform: 'uppercase',
     },
     detailValue: {
-        fontSize: FontSizes.md,
+        fontSize: FontSizes.base,
         fontWeight: FontWeights.bold,
         color: Colors.text.primary,
     },
-    allotmentInfo: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: Spacing.sm,
-        marginTop: Spacing.md,
-        paddingTop: Spacing.md,
-        borderTopWidth: 1,
-        borderTopColor: Colors.border.medium,
+    plContainer: {
+        gap: 2,
     },
-    allotmentText: {
-        fontSize: FontSizes.base,
-        color: Colors.text.secondary,
-        fontWeight: FontWeights.semibold,
-    },
-    allotmentValue: {
-        color: Colors.success,
+    plPercent: {
+        fontSize: FontSizes.xs,
         fontWeight: FontWeights.bold,
     },
 });

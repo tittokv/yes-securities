@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { Colors, GradientColors } from '@/constants/colors';
 import { BorderRadius, FontSizes, FontWeights, Shadows, Spacing } from '@/constants/typography';
+import { IPOCard } from '../ipo/IPOCard';
 
 type StockItem = {
   id: string;
@@ -20,7 +21,7 @@ type StockItem = {
 const MOCK_STOCKS: StockItem[] = [
   {
     id: '1',
-    name: 'NIP IND ETF BANK BEES',
+    name: 'Mashu',
     avgPrice: 6267.51,
     quantity: 12.0,
     invested: 6267.51,
@@ -125,40 +126,7 @@ export function PortfolioContent() {
         {/* Stock List */}
         <View style={styles.stockList}>
           {filteredStocks.map((stock) => (
-            <View key={stock.id} style={styles.stockCard}>
-              <View style={styles.stockHeader}>
-                <View style={styles.stockTitleContainer}>
-                  <Text style={styles.stockName}>{stock.name}</Text>
-                  <Text style={styles.stockMeta}>
-                    Avg. Price {stock.avgPrice.toFixed(2)} • Qty: {stock.quantity}
-                  </Text>
-                </View>
-              </View>
-              
-              <View style={styles.stockDetails}>
-                <View style={styles.stockDetailItem}>
-                  <Text style={styles.detailLabel}>Invested</Text>
-                  <Text style={styles.detailValue}>{stock.invested.toFixed(2)}</Text>
-                </View>
-                
-                <View style={styles.stockDetailItem}>
-                  <Text style={styles.detailLabel}>Current</Text>
-                  <Text style={styles.detailValue}>{stock.current.toFixed(2)}</Text>
-                </View>
-                
-                <View style={styles.stockDetailItem}>
-                  <Text style={styles.detailLabel}>Profit/Loss</Text>
-                  <View style={styles.plContainer}>
-                    <Text style={[styles.detailValue, styles.lossText]}>
-                      ₹{stock.profitLoss.toFixed(2)}
-                    </Text>
-                    <Text style={[styles.plPercent, styles.lossText]}>
-                      {stock.profitLossPercent.toFixed(2)}%
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
+           <IPOCard key={stock.id} stock={stock} />
           ))}
         </View>
       </ScrollView>
