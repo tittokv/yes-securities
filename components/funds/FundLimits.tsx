@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
 
   fundHistoryHeadTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: FontWeights.medium,
   },
 
@@ -100,13 +100,13 @@ const styles = StyleSheet.create({
 
   positionMainCardTitle: {
     color: "#969494ff",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeights.bold,
   },
 
   positionMainCardAmount: {
     color: "#3a0b0bff",
-    fontSize: 22,
+    fontSize: 17,
     fontWeight: FontWeights.bold,
     marginTop: 5,
   },

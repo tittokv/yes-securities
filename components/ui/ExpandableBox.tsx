@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '600',
   },
   headerRight: {
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerValue: {
-    fontSize: 19,
+    fontSize: 16,
     fontWeight: '700',
     marginRight: 10,
   },
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   rowLabel: {
-    fontSize: 17,
+    fontSize: 14,
     color: '#6B7280',
   },
   rowValue: {

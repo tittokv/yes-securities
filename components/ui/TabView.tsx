@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
     borderRadius: BorderRadius.lg,
-    padding: 4,
+    padding: 0,
     gap: Spacing.sm,
   },
 });

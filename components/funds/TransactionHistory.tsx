@@ -108,7 +108,7 @@ export function TransactionHistory() {
                 <Text style={styles.transLabel}>Amount Deposted</Text>
               </View>
 
-              <Text style={styles.transAmount}>1908.90</Text>
+              <Text style={styles.transAmount}>₹1908.90</Text>
             </View>
 
             {/* Line 3: date under the label */}
@@ -127,7 +127,7 @@ export function TransactionHistory() {
                 <Text style={styles.transLabel}>Amount Deposted</Text>
               </View>
 
-              <Text style={styles.transAmount}>127.90</Text>
+              <Text style={styles.transAmount}>₹127.90</Text>
             </View>
 
             {/* Line 3: date under the label */}
@@ -165,29 +165,29 @@ const styles = StyleSheet.create({
 
   // NEW: arrow icon style
   transIcon: {
-    fontSize: 20,
+    fontSize: 18,
     marginRight: 6,
     color: "#a91919ff",
   },
 
   transMonthText: {
     color: "#1c0202ff",
-    fontSize: 19,
+    fontSize: 15,
     fontWeight: FontWeights.bold,
   },
   transLabel: {
     color: "#1b0202ff",
-    fontSize: 17,
+    fontSize: 14,
     fontWeight: FontWeights.medium,
   },
   transAmount: {
     color: "#df2828ff",
-    fontSize: 22,
+    fontSize: 16,
     fontWeight: FontWeights.bold,
   },
   transDateMonth: {
     color: "#afa2a2ff",
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: FontWeights.medium,
     marginTop: 0,
     marginLeft: 27, // sits nicely under "Amount Deposted"
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
 
   positionMainCardTitle: {
     color: "#969494ff",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeights.bold,
   },
 
