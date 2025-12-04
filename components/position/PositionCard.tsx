@@ -23,7 +23,7 @@ export function PositionCard({ position }: PositionCardProps) {
                         <Ionicons
                             name={isProfit ? 'trending-up' : 'trending-down'}
                             size={16}
-                            color="#fff"
+                            color="#ffffff"
                         />
                     </View>
                     <Text style={styles.symbol}>{position.symbol}</Text>
