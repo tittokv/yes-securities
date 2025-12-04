@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     card: {
         borderRadius: BorderRadius.xl,
         overflow: 'hidden',
+        
         ...Shadows.medium,
     },
     gradient: {

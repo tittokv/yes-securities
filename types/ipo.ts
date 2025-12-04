@@ -1,13 +1,10 @@
-export type IPOStatus = 'Allotted' | 'Applied' | 'Rejected';
-
-export interface IPOApplication {
+export interface StockItem {
     id: string;
-    companyName: string;
-    applicationNumber: string;
-    bidPrice: number;
+    name: string;
+    avgPrice: number;
     quantity: number;
-    totalAmount: number;
-    status: IPOStatus;
-    allottedQuantity: number;
-    appliedDate: string;
-}
+    invested: number;
+    current: number;
+    profitLoss: number;
+    profitLossPercent: number;
+};

@@ -23,15 +23,7 @@ export default function IPOOrderBookScreen() {
     return (
         <LinearGradient colors={GradientColors.background} style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
-                <SummaryCard>
-                    <View style={styles.summaryRow}>
-                        <SummaryItem icon="document-text-outline" value={totalApplications.toString()} label="Total" />
-                        <View style={styles.summaryDivider} />
-                        <SummaryItem icon="checkmark-circle-outline" value={allottedCount.toString()} label="Allotted" />
-                        <View style={styles.summaryDivider} />
-                        <SummaryItem icon="time-outline" value={pendingCount.toString()} label="Pending" />
-                    </View>
-                </SummaryCard>
+              
 
                 <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>Your Applications</Text>

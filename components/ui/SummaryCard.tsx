@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     card: {
         borderRadius: BorderRadius.xl,
         overflow: 'hidden',
+        padding: 10,
         ...Shadows.large,
     },
     gradient: {
