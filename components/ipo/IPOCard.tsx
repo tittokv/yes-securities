@@ -120,14 +120,14 @@ const styles = StyleSheet.create({
         color: '#ef4444',
         fontWeight: FontWeights.bold,
     },
-  
+
     stockCard: {
         backgroundColor: Colors.white,
         borderRadius: BorderRadius.lg,
         padding: Spacing.lg,
         ...Shadows.medium,
         borderLeftWidth: 4,
-        borderLeftColor: '#667eea',
+        borderLeftColor: '#347ab6',
     },
     stockHeader: {
         marginBottom: Spacing.md,

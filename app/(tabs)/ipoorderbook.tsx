@@ -2,11 +2,23 @@ import { IPOCard } from '@/components/ipo/IPOCard';
 import { SummaryCard } from '@/components/ui/SummaryCard';
 import { Colors, GradientColors } from '@/constants/colors';
 import { BorderRadius, FontSizes, FontWeights, Spacing } from '@/constants/typography';
-import { IPOApplication } from '@/types/ipo';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+// Define IPOApplication type locally for this screen only
+interface IPOApplication {
+    id: string;
+    companyName: string;
+    applicationNumber: string;
+    bidPrice: number;
+    quantity: number;
+    totalAmount: number;
+    status: 'Allotted' | 'Applied' | 'Rejected';
+    allottedQuantity: number;
+    appliedDate: string;
+}
 
 const IPO_APPLICATIONS: IPOApplication[] = [
     { id: '1', companyName: 'TechCorp Industries Ltd', applicationNumber: 'IPO2024001234', bidPrice: 450, quantity: 100, totalAmount: 45000, status: 'Allotted', allottedQuantity: 100, appliedDate: '2024-11-15' },
@@ -23,7 +35,7 @@ export default function IPOOrderBookScreen() {
     return (
         <LinearGradient colors={GradientColors.background} style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
-              
+
 
                 <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>Your Applications</Text>
@@ -33,9 +45,20 @@ export default function IPOOrderBookScreen() {
                 </View>
 
                 <View style={styles.applicationsList}>
-                    {IPO_APPLICATIONS.map((application) => (
-                        <IPOCard key={application.id} application={application} />
-                    ))}
+                    {IPO_APPLICATIONS.map((application) => {
+                        // Transform application to stock format for IPOCard
+                        const stockData = {
+                            id: application.id,
+                            name: application.companyName,
+                            avgPrice: application.bidPrice,
+                            quantity: application.quantity,
+                            invested: application.totalAmount,
+                            current: application.totalAmount, // Using same as invested for IPO
+                            profitLoss: 0, // No P/L for IPO applications
+                            profitLossPercent: 0,
+                        };
+                        return <IPOCard key={application.id} stock={stockData} />;
+                    })}
                 </View>
 
                 {IPO_APPLICATIONS.length === 0 && (
