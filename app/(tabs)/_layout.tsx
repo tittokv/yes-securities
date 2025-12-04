@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
@@ -69,7 +70,8 @@ export default function TabsLayout() {
         options={{
           title: 'Funds',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cash-outline" size={size} color={color} />
+          <MaterialCommunityIcons name="currency-inr" size={size} color={color} />
+
           ),
         }}
       />
