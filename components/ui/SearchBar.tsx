@@ -14,8 +14,8 @@ type Props = {
   filterIcon?: keyof typeof Ionicons.glyphMap;
 };
 
-export function SearchBar({ 
-  placeholder = 'Search...', 
+export function SearchBar({
+  placeholder = 'Search...',
   value,
   onChangeText,
   onFilterPress,
@@ -25,11 +25,11 @@ export function SearchBar({
   return (
     <View style={styles.searchContainer}>
       <View style={styles.searchInnerContainer}>
-        <Ionicons 
-          name="search" 
-          size={20} 
-          color={Colors.text.secondary} 
-          style={styles.searchIcon} 
+        <Ionicons
+          name="search"
+          size={20}
+          color={Colors.text.secondary}
+          style={styles.searchIcon}
         />
         <TextInput
           placeholder={placeholder}
@@ -40,8 +40,8 @@ export function SearchBar({
         />
       </View>
 
-      {showFilter && (
-        <TouchableOpacity 
+      {/* {showFilter && (
+        <TouchableOpacity
           style={styles.filterButton}
           onPress={onFilterPress}
         >
@@ -54,7 +54,7 @@ export function SearchBar({
             <Ionicons name={filterIcon} size={20} color={Colors.white} />
           </LinearGradient>
         </TouchableOpacity>
-      )}
+      )} */}
     </View>
   );
 }

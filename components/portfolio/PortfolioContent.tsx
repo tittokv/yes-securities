@@ -53,7 +53,7 @@ const MOCK_STOCKS: StockItem[] = [
 
 export function PortfolioContent() {
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   const totalValue = 127440.58;
   const amountInvested = 1151945.12;
   const totalProfitLoss = -24506.97;
@@ -77,30 +77,30 @@ export function PortfolioContent() {
         placeholder="Search portfolio..."
         value={searchQuery}
         onChangeText={setSearchQuery}
-        onFilterPress={handleFilterPress}
+        showFilter={false}
       />
-      
+
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Summary Card */}
         <View style={styles.summaryCard}>
           <LinearGradient
-            colors={['rgba(102, 126, 234, 0.1)', 'rgba(118, 75, 162, 0.05)']}
+            colors={['rgba(52, 122, 182, 0.1)', 'rgba(91, 163, 208, 0.05)']}
             style={styles.summaryGradient}
           >
             <View style={styles.summaryRow}>
               <Text style={styles.summaryLabel}>Current Value</Text>
               <Text style={styles.summaryValue}>₹{totalValue.toLocaleString('en-IN')}</Text>
             </View>
-            
+
             <View style={styles.divider} />
-            
+
             <View style={styles.summaryRow}>
               <Text style={styles.summaryLabel}>Amount Invested</Text>
               <Text style={styles.summaryValue}>₹{amountInvested.toLocaleString('en-IN')}</Text>
             </View>
-            
+
             <View style={styles.divider} />
-            
+
             <View style={styles.summaryRow}>
               <Text style={styles.summaryLabel}>Total Profit/Loss</Text>
               <View style={styles.summaryRight}>
@@ -113,8 +113,8 @@ export function PortfolioContent() {
               </View>
             </View>
           </LinearGradient>
-          
-       
+
+
           <View style={styles.todayPLContainer}>
             <Ionicons name="trending-down" size={20} color="#ef4444" />
             <Text style={styles.todayPLText}>
@@ -126,7 +126,7 @@ export function PortfolioContent() {
         {/* Stock List */}
         <View style={styles.stockList}>
           {filteredStocks.map((stock) => (
-           <IPOCard key={stock.id} stock={stock} />
+            <IPOCard key={stock.id} stock={stock} />
           ))}
         </View>
       </ScrollView>
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     ...Shadows.medium,
     borderLeftWidth: 4,
-    borderLeftColor: '#667eea',
+    borderLeftColor: '#347ab6',
   },
   stockHeader: {
     marginBottom: Spacing.md,

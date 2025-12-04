@@ -82,14 +82,14 @@ export const Shadows = {
         elevation: 2,
     },
     medium: {
-        shadowColor: '#6366f1',
+        shadowColor: '#347ab6',
         shadowOpacity: 0.15,
         shadowOffset: { width: 0, height: 4 },
         shadowRadius: 12,
         elevation: 5,
     },
     large: {
-        shadowColor: '#6366f1',
+        shadowColor: '#347ab6',
         shadowOpacity: 0.2,
         shadowOffset: { width: 0, height: 8 },
         shadowRadius: 16,

@@ -26,7 +26,7 @@ const MOCK_HOLDINGS: HoldingItem[] = [
 
 export function HoldingsContent() {
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   const totalHoldingValue = 126480.74;
 
   const handleFilterPress = () => {
@@ -48,11 +48,11 @@ export function HoldingsContent() {
         onFilterPress={handleFilterPress}
         filterIcon="funnel-outline"
       />
-      
+
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Total Value Card */}
         <LinearGradient
-          colors={['#667eea', '#764ba2']}
+          colors={['#347ab6', '#5ba3d0']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.totalValueCard}
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...Shadows.medium,
     borderLeftWidth: 3,
-    borderLeftColor: '#667eea',
+    borderLeftColor: '#347ab6',
   },
   holdingLeft: {
     flex: 1,
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontSize: FontSizes.xs,
-    color: '#667eea',
+    color: '#347ab6',
     fontWeight: FontWeights.bold,
   },
   metaRow: {
