@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, Animated } from 'react-native';
 import { TabButton } from './TabButton';
 import { BorderRadius, Spacing } from '@/constants/typography';
 
@@ -17,10 +17,62 @@ type Props = {
 
 export function TabView({ tabs, defaultTab, onTabChange }: Props) {
   const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.key || '');
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+  const translateYAnim = useRef(new Animated.Value(0)).current;
 
   const handleTabPress = (tabKey: string) => {
-    setActiveTab(tabKey);
-    onTabChange?.(tabKey);
+    if (tabKey === activeTab) return;
+
+    // Ultra-smooth transition animation
+    Animated.parallel([
+      // Fade out current content
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      // Scale down slightly
+      Animated.timing(scaleAnim, {
+        toValue: 0.96,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      // Slide up slightly
+      Animated.timing(translateYAnim, {
+        toValue: -10,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      // Change tab
+      setActiveTab(tabKey);
+      onTabChange?.(tabKey);
+
+      // Reset position instantly
+      translateYAnim.setValue(10);
+
+      // Fade in and slide up new content with spring
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 400,
+          useNativeDriver: true,
+        }),
+        Animated.spring(scaleAnim, {
+          toValue: 1,
+          friction: 10,
+          tension: 50,
+          useNativeDriver: true,
+        }),
+        Animated.spring(translateYAnim, {
+          toValue: 0,
+          friction: 10,
+          tension: 50,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    });
   };
 
   const activeTabContent = tabs.find(tab => tab.key === activeTab)?.content;
@@ -37,7 +89,22 @@ export function TabView({ tabs, defaultTab, onTabChange }: Props) {
           />
         ))}
       </View>
-      {activeTabContent}
+
+      {/* Animated Content Container with multiple transforms */}
+      <Animated.View
+        style={[
+          styles.contentContainer,
+          {
+            opacity: fadeAnim,
+            transform: [
+              { scale: scaleAnim },
+              { translateY: translateYAnim },
+            ],
+          },
+        ]}
+      >
+        {activeTabContent}
+      </Animated.View>
     </>
   );
 }
@@ -52,5 +119,8 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.lg,
     padding: 0,
     gap: Spacing.sm,
+  },
+  contentContainer: {
+    flex: 1,
   },
 });

@@ -1,24 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
+  Pressable,
   KeyboardAvoidingView,
   Platform,
   Image,
+  Keyboard,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import Animated, {
+  FadeInDown,
+  FadeInUp,
+  FadeIn,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withSequence,
+} from 'react-native-reanimated';
 import { StatusBar } from 'expo-status-bar';
 import { SearchBar } from '@/components/ui/SearchBar';
+
+// Types
+interface StockValue {
+  current: number;
+  prev: number;
+}
+
+interface StockData {
+  nifty50: StockValue;
+  sensex: StockValue;
+  niftyBank: StockValue;
+}
+
+// Constants
+const COLORS = {
+  positive: '#10b981',
+  negative: '#ef4444',
+  primary: '#347ab6',
+  primaryLight: '#5ba3d0',
+  disabled: '#94a3b8',
+  disabledDark: '#64748b',
+  background: '#f1f5f9',
+  text: '#1e293b',
+  textLight: '#64748b',
+  white: '#ffffff',
+  warning: '#f59e0b',
+};
 
 export default function SplashScreen() {
   const router = useRouter();
   const [userId, setUserId] = useState('');
+  const buttonScale = useSharedValue(1);
+  const inputScale = useSharedValue(1);
 
-  const [stockData, setStockData] = useState({
+  const [stockData, setStockData] = useState<StockData>({
     nifty50: { current: 26070.70, prev: 26070.70 },
     sensex: { current: 85387.97, prev: 85387.97 },
     niftyBank: { current: 59537.10, prev: 59537.10 },
@@ -26,6 +64,7 @@ export default function SplashScreen() {
 
   const isButtonEnabled = userId.trim().length > 0;
 
+  // Stock ticker animation
   useEffect(() => {
     const interval = setInterval(() => {
       setStockData((prev) => ({
@@ -47,20 +86,61 @@ export default function SplashScreen() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSubmit = () => {
-    if (userId.trim()) router.push('/(tabs)');
+  // Format client ID as user types (adds dashes)
+  const formatClientId = (text: string): string => {
+    const cleaned = text.replace(/[^A-Z0-9]/gi, '').toUpperCase();
+    const chunks = cleaned.match(/.{1,4}/g);
+    return chunks ? chunks.join('-') : cleaned;
   };
 
+  // Handle text change with formatting and animation
+  const handleTextChange = (text: string) => {
+    const formatted = formatClientId(text);
+    setUserId(formatted);
+
+    // Subtle scale animation on input
+    inputScale.value = withSequence(
+      withSpring(1.02, { damping: 20 }),
+      withSpring(1, { damping: 20 })
+    );
+  };
+
+  // Handle submit
+  const handleSubmit = () => {
+    if (userId.trim()) {
+      Keyboard.dismiss();
+      router.push('/(tabs)');
+    }
+  };
+
+  // Button press animation
+  const buttonAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: buttonScale.value }],
+  }));
+
+  // Input container animation
+  const inputAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: inputScale.value }],
+  }));
+
+  // Helper functions
   const format = (n: number) => n.toFixed(2);
 
   const getColor = (current: number, prev: number) => {
-    return current >= prev ? '#10b981' : '#ef4444';
+    return current >= prev ? COLORS.positive : COLORS.negative;
   };
 
   const getArrow = (current: number, prev: number) => {
     return current >= prev ? '▲' : '▼';
   };
 
+  // Dynamic validation hint with color
+  const validationHint = useMemo(() => {
+    const length = userId.replace(/-/g, '').length;
+    if (length === 0) return { text: 'e.g., ABC123456 or ABCD-1234-EFGH', color: COLORS.textLight };
+    if (length < 8) return { text: '⚠️ Client IDs are usually 8-12 characters', color: COLORS.warning };
+    return { text: '✓ Looks good!', color: COLORS.positive };
+  }, [userId]);
 
   return (
     <View style={styles.container}>
@@ -70,7 +150,7 @@ export default function SplashScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.content}
       >
-        {/* Responsive Market Banner */}
+        {/* Market Banner */}
         <Animated.View entering={FadeInUp.delay(100).springify()}>
           <Image
             source={require('@/assets/images/market_banner.png')}
@@ -78,87 +158,159 @@ export default function SplashScreen() {
             resizeMode="contain"
           />
 
+          {/* Stock Tickers with smooth animations */}
+          <StockCard
+            title="NIFTY 50"
+            data={stockData.nifty50}
+            style={styles.stockCard}
+            delay={200}
+            format={format}
+            getColor={getColor}
+            getArrow={getArrow}
+          />
 
-          {/* Stock Tickers */}
-          <Animated.View style={styles.stockCard} entering={FadeInDown.delay(200).springify()}>
-            <Text style={styles.stockTitle}>NIFTY 50</Text>
-            <Text
-              style={[
-                styles.stockValue,
-                { color: getColor(stockData.nifty50.current, stockData.nifty50.prev) }
-              ]}
-            >
-              {getArrow(stockData.nifty50.current, stockData.nifty50.prev)} ₹
-              {format(stockData.nifty50.current)}
-            </Text>
+          <StockCard
+            title="BSE SENSEX"
+            data={stockData.sensex}
+            style={[styles.stockCard, styles.middleCard]}
+            delay={300}
+            format={format}
+            getColor={getColor}
+            getArrow={getArrow}
+          />
 
-          </Animated.View>
-
-          <Animated.View style={[styles.stockCard, styles.middleCard]} entering={FadeInDown.delay(300).springify()}>
-            <Text style={styles.stockTitle}>BSE SENSEX</Text>
-            <Text
-              style={[
-                styles.stockValue,
-                { color: getColor(stockData.sensex.current, stockData.sensex.prev) }
-              ]}
-            >
-              {getArrow(stockData.sensex.current, stockData.sensex.prev)} ₹
-              {format(stockData.sensex.current)}
-            </Text>
-          </Animated.View>
-
-          <Animated.View style={[styles.stockCard, styles.bottomCard]} entering={FadeInDown.delay(400).springify()}>
-            <Text style={styles.stockTitle}>NIFTY BANK</Text>
-            <Text
-              style={[
-                styles.stockValue,
-                { color: getColor(stockData.niftyBank.current, stockData.niftyBank.prev) }
-              ]}
-            >
-              {getArrow(stockData.niftyBank.current, stockData.niftyBank.prev)} ₹
-              {format(stockData.niftyBank.current)}
-            </Text>
-          </Animated.View>
+          <StockCard
+            title="NIFTY BANK"
+            data={stockData.niftyBank}
+            style={[styles.stockCard, styles.bottomCard]}
+            delay={400}
+            format={format}
+            getColor={getColor}
+            getArrow={getArrow}
+          />
         </Animated.View>
 
         {/* Header */}
         <Animated.View entering={FadeInUp.delay(500).springify()} style={styles.header}>
-          <Text style={styles.title}>YES Securities</Text>
-          <Text style={styles.subtitle}>Smart Investing Made Simple</Text>
+          <Image
+            source={require('@/assets/images/logoyes.png')}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
         </Animated.View>
 
-        {/* Search */}
+        {/* Form with enhanced UX */}
         <Animated.View entering={FadeInDown.delay(600).springify()} style={styles.formContainer}>
-          <SearchBar
-            placeholder="Search for Client ID"
-            value={userId}
-            onChangeText={setUserId}
-          />
 
-          {/* Submit Button */}
-          <TouchableOpacity
-            style={[styles.button, !isButtonEnabled && styles.buttonDisabled]}
-            onPress={handleSubmit}
-            disabled={!isButtonEnabled}
-          >
-            <LinearGradient
-              colors={isButtonEnabled ? ['#347ab6', '#5ba3d0'] : ['#94a3b8', '#64748b']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.buttonGradient}
+          {/* Input with animation */}
+          <Animated.View style={inputAnimatedStyle}>
+            <SearchBar
+              placeholder="Enter Client ID"
+              value={userId}
+              onChangeText={handleTextChange}
+              showFilter={false}
+            />
+
+            {/* Smart validation hint */}
+            {/* <Animated.View entering={FadeIn}>
+              <Text style={[styles.hintText, { color: validationHint.color }]}>
+                {validationHint.text}
+              </Text>
+            </Animated.View> */}
+          </Animated.View>
+
+          {/* Submit Button with press animation */}
+          <Animated.View style={buttonAnimatedStyle}>
+            <Pressable
+              style={[styles.button, !isButtonEnabled && styles.buttonDisabled]}
+              onPress={handleSubmit}
+              onPressIn={() => {
+                buttonScale.value = withSpring(0.95);
+              }}
+              onPressOut={() => {
+                buttonScale.value = withSpring(1);
+              }}
+              disabled={!isButtonEnabled}
             >
-              <Text style={styles.buttonText}>Submit</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+              <LinearGradient
+                colors={isButtonEnabled ? [COLORS.primary, COLORS.primaryLight] : [COLORS.disabled, COLORS.disabledDark]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={styles.buttonGradient}
+              >
+                <Text style={styles.buttonText}>Submit</Text>
+              </LinearGradient>
+            </Pressable>
+          </Animated.View>
+
         </Animated.View>
       </KeyboardAvoidingView>
     </View>
   );
 }
 
+// Stock Card Component with smooth transitions
+interface StockCardProps {
+  title: string;
+  data: StockValue;
+  style: any;
+  delay: number;
+  format: (n: number) => string;
+  getColor: (current: number, prev: number) => string;
+  getArrow: (current: number, prev: number) => string;
+}
+
+const StockCard: React.FC<StockCardProps> = ({
+  title,
+  data,
+  style,
+  delay,
+  format,
+  getColor,
+  getArrow
+}) => {
+  const scale = useSharedValue(1);
+
+  // Pulse animation when value changes
+  useEffect(() => {
+    scale.value = withSequence(
+      withSpring(1.05, { damping: 15 }),
+      withSpring(1, { damping: 15 })
+    );
+  }, [data.current]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <Animated.View
+      style={[style, animatedStyle]}
+      entering={FadeInDown.delay(delay).springify()}
+    >
+      <Text style={styles.stockTitle}>{title}</Text>
+      <Text
+        style={[
+          styles.stockValue,
+          { color: getColor(data.current, data.prev) }
+        ]}
+      >
+        {getArrow(data.current, data.prev)} ₹{format(data.current)}
+      </Text>
+    </Animated.View>
+  );
+};
+
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f1f5f9' },
-  content: { flex: 1, paddingHorizontal: 24, justifyContent: 'center' },
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 24,
+    justifyContent: 'center'
+  },
 
   heroImage: {
     width: '100%',
@@ -166,8 +318,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
+  logoImage: {
+    width: '60%',
+    alignSelf: 'center',
+  },
+
   stockCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: COLORS.white,
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 10,
@@ -175,6 +332,10 @@ const styles = StyleSheet.create({
     top: 120,
     left: 20,
     elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   middleCard: { top: 165, right: 20, left: undefined },
   bottomCard: { top: 210 },
@@ -187,23 +348,49 @@ const styles = StyleSheet.create({
   stockValue: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#4f46e5',
+    marginTop: 2,
   },
 
-  header: { alignItems: 'center', marginTop: 40 },
-  title: { fontSize: 30, fontWeight: '700', color: '#1e293b', marginBottom: 6 },
-  subtitle: { fontSize: 15, color: '#64748b', fontWeight: '500' },
-  formContainer: { gap: 20, marginTop: 20 },
+  header: {
+    alignItems: 'center',
+    marginTop: 40
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: '700',
+    color: COLORS.text,
+    marginBottom: 6
+  },
+  subtitle: {
+    fontSize: 15,
+    color: COLORS.textLight,
+    fontWeight: '500'
+  },
+
+  formContainer: {
+    gap: 16,
+    marginTop: 20
+  },
+
+  hintText: {
+    fontSize: 13,
+    marginTop: 8,
+    marginLeft: 4,
+    fontWeight: '500',
+  },
 
   button: {
     borderRadius: 12,
-    shadowColor: '#347ab6',
+    shadowColor: COLORS.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 12,
     elevation: 6,
   },
-  buttonDisabled: { shadowOpacity: 0.1, elevation: 2 },
+  buttonDisabled: {
+    shadowOpacity: 0.1,
+    elevation: 2
+  },
 
   buttonGradient: {
     height: 56,
@@ -214,6 +401,16 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 17,
     fontWeight: '600',
-    color: 'white',
+    color: COLORS.white,
+  },
+
+  helpButton: {
+    alignItems: 'center',
+    paddingVertical: 12,
+  },
+  helpText: {
+    fontSize: 14,
+    color: COLORS.textLight,
+    textDecorationLine: 'underline',
   },
 });
