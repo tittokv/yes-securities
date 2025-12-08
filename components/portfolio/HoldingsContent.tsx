@@ -60,7 +60,7 @@ export function HoldingsContent() {
           <Text style={styles.totalValueLabel}>Total Holding Value</Text>
           <Text style={styles.totalValueAmount}>₹{totalHoldingValue.toLocaleString('en-IN')}</Text>
           <View style={styles.iconContainer}>
-            <Ionicons name="trending-up" size={40} color="rgba(255,255,255,0.3)" />
+            <Ionicons name="trending-up" size={40} color="rgba(255, 255, 255, 1)" />
           </View>
         </LinearGradient>
 
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   totalValueLabel: {
     fontSize: FontSizes.base,
-    color: 'rgba(255,255,255,0.9)',
+    color: 'rgba(255, 255, 255, 0.01)',
     fontWeight: FontWeights.medium,
     marginBottom: Spacing.xs,
   },

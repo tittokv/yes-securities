@@ -62,9 +62,9 @@ export default function SplashScreen() {
     niftyBank: { current: 59537.10, prev: 59537.10 },
   });
 
-  const isButtonEnabled = userId.trim().length > 0;
+  const isButtonEnabled = userId.trim().length > 8;
 
-  // Stock ticker animation
+
   useEffect(() => {
     const interval = setInterval(() => {
       setStockData((prev) => ({
@@ -86,19 +86,19 @@ export default function SplashScreen() {
     return () => clearInterval(interval);
   }, []);
 
-  // Format client ID as user types (adds dashes)
+  //  client ID as user types 
   const formatClientId = (text: string): string => {
     const cleaned = text.replace(/[^A-Z0-9]/gi, '').toUpperCase();
     const chunks = cleaned.match(/.{1,4}/g);
     return chunks ? chunks.join('-') : cleaned;
   };
 
-  // Handle text change with formatting and animation
+  // text change with formatting and animation
   const handleTextChange = (text: string) => {
     const formatted = formatClientId(text);
     setUserId(formatted);
 
-    // Subtle scale animation on input
+    // Subtle  animation scale 
     inputScale.value = withSequence(
       withSpring(1.02, { damping: 20 }),
       withSpring(1, { damping: 20 })
@@ -113,12 +113,11 @@ export default function SplashScreen() {
     }
   };
 
-  // Button press animation
+
   const buttonAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: buttonScale.value }],
   }));
 
-  // Input container animation
   const inputAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: inputScale.value }],
   }));
@@ -134,12 +133,11 @@ export default function SplashScreen() {
     return current >= prev ? '▲' : '▼';
   };
 
-  // Dynamic validation hint with color
+  // Dynamic validation color and hinyt
   const validationHint = useMemo(() => {
     const length = userId.replace(/-/g, '').length;
-    if (length === 0) return { text: 'e.g., ABC123456 or ABCD-1234-EFGH', color: COLORS.textLight };
-    if (length < 8) return { text: '⚠️ Client IDs are usually 8-12 characters', color: COLORS.warning };
-    return { text: '✓ Looks good!', color: COLORS.positive };
+    if (length > 12) return { text: ' Client IDs are usually 8-12 characters', color: COLORS.warning };
+    return { text: '', color: COLORS.positive };
   }, [userId]);
 
   return (
@@ -153,41 +151,12 @@ export default function SplashScreen() {
         {/* Market Banner */}
         <Animated.View entering={FadeInUp.delay(100).springify()}>
           <Image
-            source={require('@/assets/images/market_banner.png')}
+            source={require('@/assets/images/stock_image.png')}
             style={styles.heroImage}
             resizeMode="contain"
           />
 
-          {/* Stock Tickers with smooth animations */}
-          <StockCard
-            title="NIFTY 50"
-            data={stockData.nifty50}
-            style={styles.stockCard}
-            delay={200}
-            format={format}
-            getColor={getColor}
-            getArrow={getArrow}
-          />
-
-          <StockCard
-            title="BSE SENSEX"
-            data={stockData.sensex}
-            style={[styles.stockCard, styles.middleCard]}
-            delay={300}
-            format={format}
-            getColor={getColor}
-            getArrow={getArrow}
-          />
-
-          <StockCard
-            title="NIFTY BANK"
-            data={stockData.niftyBank}
-            style={[styles.stockCard, styles.bottomCard]}
-            delay={400}
-            format={format}
-            getColor={getColor}
-            getArrow={getArrow}
-          />
+          {/* Stock Tickers */}
         </Animated.View>
 
         {/* Header */}
@@ -199,10 +168,9 @@ export default function SplashScreen() {
           />
         </Animated.View>
 
-        {/* Form with enhanced UX */}
+
         <Animated.View entering={FadeInDown.delay(600).springify()} style={styles.formContainer}>
 
-          {/* Input with animation */}
           <Animated.View style={inputAnimatedStyle}>
             <SearchBar
               placeholder="Enter Client ID"
@@ -211,15 +179,14 @@ export default function SplashScreen() {
               showFilter={false}
             />
 
-            {/* Smart validation hint */}
-            {/* <Animated.View entering={FadeIn}>
+            <Animated.View entering={FadeIn}>
               <Text style={[styles.hintText, { color: validationHint.color }]}>
                 {validationHint.text}
               </Text>
-            </Animated.View> */}
+            </Animated.View>
           </Animated.View>
 
-          {/* Submit Button with press animation */}
+          {/* Submit Button */}
           <Animated.View style={buttonAnimatedStyle}>
             <Pressable
               style={[styles.button, !isButtonEnabled && styles.buttonDisabled]}
@@ -237,8 +204,9 @@ export default function SplashScreen() {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={styles.buttonGradient}
+
               >
-                <Text style={styles.buttonText}>Submit</Text>
+                <Text style={styles.buttonText}>SUBMIT</Text>
               </LinearGradient>
             </Pressable>
           </Animated.View>
@@ -249,7 +217,7 @@ export default function SplashScreen() {
   );
 }
 
-// Stock Card Component with smooth transitions
+// Stock Card Component
 interface StockCardProps {
   title: string;
   data: StockValue;
@@ -271,7 +239,7 @@ const StockCard: React.FC<StockCardProps> = ({
 }) => {
   const scale = useSharedValue(1);
 
-  // Pulse animation when value changes
+  //  animation when value changes
   useEffect(() => {
     scale.value = withSequence(
       withSpring(1.05, { damping: 15 }),
@@ -329,8 +297,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 10,
     position: 'absolute',
-    top: 120,
-    left: 20,
+    top: 90,
+    left: 10,
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -380,21 +348,24 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    borderRadius: 12,
+    borderRadius: 60,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.25)',
     shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-    elevation: 6,
+    shadowOffset: { width: 10, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 14,
+    elevation: 8,
   },
+
   buttonDisabled: {
     shadowOpacity: 0.1,
     elevation: 2
   },
 
   buttonGradient: {
-    height: 56,
-    borderRadius: 12,
+    height: 50,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

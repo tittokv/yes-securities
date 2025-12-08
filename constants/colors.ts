@@ -36,6 +36,7 @@ export const Colors = {
 
 export const GradientColors = {
     primary: [Colors.primary, Colors.secondary],
+    secondary: [Colors.primary, Colors.primary],
     success: ['rgba(16, 185, 129, 0.9)', 'rgba(5, 150, 105, 0.85)'],
     error: ['rgba(239, 68, 68, 0.9)', 'rgba(220, 38, 38, 0.85)'],
     purple: ['rgba(139, 92, 246, 0.9)', 'rgba(124, 58, 237, 0.85)'],

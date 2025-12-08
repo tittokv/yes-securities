@@ -14,7 +14,6 @@ interface PositionCardProps {
 
 export function PositionCard({ position }: PositionCardProps) {
     const isProfit = position.pnl >= 0;
-
     return (
         <AnimatedCard style={styles.card}>
             <View style={styles.header}>
@@ -50,7 +49,7 @@ export function PositionCard({ position }: PositionCardProps) {
 
             <View style={styles.actions}>
                 <GradientButton title="Exit" gradientColors={[Colors.error, Colors.errorDark]} />
-                <GradientButton title="Details" gradientColors={GradientColors.primary} />
+                <GradientButton title="Details" gradientColors={[Colors.primary, Colors.primary]} />
             </View>
         </AnimatedCard>
     );

@@ -1,0 +1,42 @@
+{
+    "transactions": [
+        {
+            "month": "October 2025",
+            "items": [
+                {
+                    "id": "1",
+                    "type": "deposit",
+                    "label": "Amount Deposted",
+                    "amount": 190.90,
+                    "date": "02 Oct 2025"
+                },
+                {
+                    "id": "2",
+                    "type": "deposit",
+                    "label": "Amount Deposted",
+                    "amount": 110.90,
+                    "date": "01 Oct 2025"
+                }
+            ]
+        },
+        {
+            "month": "September 2025",
+            "items": [
+                {
+                    "id": "3",
+                    "type": "deposit",
+                    "label": "Amount Deposted",
+                    "amount": 1908.90,
+                    "date": "02 Sept 2025"
+                },
+                {
+                    "id": "4",
+                    "type": "deposit",
+                    "label": "Amount Deposted",
+                    "amount": 127.90,
+                    "date": "01 Sept 2025"
+                }
+            ]
+        }
+    ]
+}

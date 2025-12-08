@@ -21,7 +21,7 @@ type StockItem = {
 const MOCK_STOCKS: StockItem[] = [
   {
     id: '1',
-    name: 'Mashu',
+    name: 'ACL INDUSTRIES LIMITED',
     avgPrice: 6267.51,
     quantity: 12.0,
     invested: 6267.51,
@@ -118,7 +118,7 @@ export function PortfolioContent() {
           <View style={styles.todayPLContainer}>
             <Ionicons name="trending-down" size={20} color="#ef4444" />
             <Text style={styles.todayPLText}>
-              Today's P/L: ₹{todayPL.toLocaleString('en-IN')} ({todayPLPercent}%)
+              Today&apos;s P/L: ₹{todayPL.toLocaleString('en-IN')} ({todayPLPercent}%)
             </Text>
           </View>
         </View>
