@@ -17,8 +17,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator
 } from "react-native";
 import { ExpandableBox } from "../ui/ExpandableBox";
+import { useFunds } from "@/hooks/useFunds";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = SCREEN_WIDTH - 64;
@@ -28,17 +30,32 @@ export function FundLimitsScreen() {
   const scrollViewRef = useRef<ScrollView>(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
+  const { fundsData, fundHistory, loading } = useFunds();
+
   const handleScroll = (event: any) => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const index = Math.round(offsetX / (CARD_WIDTH + 16));
     setCurrentCardIndex(index);
   };
 
+  if (loading && !fundsData) {
+    return (
+      <View style={[styles.container, styles.centerContent]}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
+
+  // Use default data if null (though loading check handles most cases)
+  const availableLimit = fundsData?.totalAvailableLimit || 0;
+  const totalLimit = fundHistory?.totalLimit || { value: 0, breakdown: [] };
+  const totalUtilization = fundHistory?.totalUtilization || { value: 0, breakdown: [] };
+
   return (
     <LinearGradient colors={GradientColors.background} style={styles.container}>
       <View style={styles.summaryRow}>
         <Text style={styles.positionMainCardTitle}>Total Available Limit</Text>
-        <Text style={styles.positionMainCardAmount}>₹10,909</Text>
+        <Text style={styles.positionMainCardAmount}>₹{availableLimit.toLocaleString('en-IN')}</Text>
       </View>
 
       <View style={styles.fundHistoryHead}>
@@ -48,26 +65,16 @@ export function FundLimitsScreen() {
       <View style={styles.expandableBoxSet}>
         <ExpandableBox
           title="Total Limit"
-          value={157}
-          rows={[
-            { label: "Ledger Balance", value: 2330 },
-            { label: "Fund Hold", value: 0 },
-            { label: "Receivables", value: 0 },
-            { label: "Adhoc Limit", value: 0 },
-            { label: "Collateral Limit", value: 0 },
-          ]}
+          value={totalLimit.value}
+          rows={totalLimit.breakdown}
         />
       </View>
 
       <View style={styles.expandableBoxSet}>
         <ExpandableBox
           title="Total Utilization"
-          value={146}
-          rows={[
-            { label: "Equity Delivery", value: 123 },
-            { label: "Equity Intraday", value: 0 },
-            { label: "Margin Funding (MTF)", value: 5 },
-          ]}
+          value={totalUtilization.value}
+          rows={totalUtilization.breakdown}
         />
       </View>
     </LinearGradient>
@@ -82,6 +89,11 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
     marginTop: 30,
+  },
+
+  centerContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   fundHistoryHeadTitle: {

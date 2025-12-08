@@ -1,0 +1,53 @@
+{
+    "totalHoldingValue": 126480.74,
+    "holdings": [
+        {
+            "id": "1",
+            "symbol": "BAJAJHIND",
+            "exchange": "NSE",
+            "ltp": 21.14,
+            "quantity": 1,
+            "currentValue": 21.14
+        },
+        {
+            "id": "2",
+            "symbol": "BANKBEES",
+            "exchange": "NSE",
+            "ltp": 583.29,
+            "quantity": 12,
+            "currentValue": 583.29
+        },
+        {
+            "id": "3",
+            "symbol": "BCLIND",
+            "exchange": "NSE",
+            "ltp": 39.11,
+            "quantity": 8,
+            "currentValue": 39.11
+        },
+        {
+            "id": "4",
+            "symbol": "CPSEETF",
+            "exchange": "NSE",
+            "ltp": 92.39,
+            "quantity": 34,
+            "currentValue": 92.39
+        },
+        {
+            "id": "5",
+            "symbol": "CUB",
+            "exchange": "NSE",
+            "ltp": 213.10,
+            "quantity": 2,
+            "currentValue": 213.10
+        },
+        {
+            "id": "6",
+            "symbol": "DHARAN",
+            "exchange": "NSE",
+            "ltp": 0.57,
+            "quantity": 67,
+            "currentValue": 0.57
+        }
+    ]
+}

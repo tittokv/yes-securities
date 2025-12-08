@@ -17,8 +17,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useFunds } from "@/hooks/useFunds";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = SCREEN_WIDTH - 64;
@@ -28,11 +30,21 @@ export function TransactionHistory() {
   const scrollViewRef = useRef<ScrollView>(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
+  const { transactions, loading } = useFunds();
+
   const handleScroll = (event: any) => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const index = Math.round(offsetX / (CARD_WIDTH + 16));
     setCurrentCardIndex(index);
   };
+
+  if (loading && transactions.length === 0) {
+    return (
+      <View style={[styles.container, styles.centerContent]}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <LinearGradient colors={GradientColors.background} style={styles.container}>
@@ -49,91 +61,33 @@ export function TransactionHistory() {
         snapToInterval={CARD_WIDTH + 16}
         decelerationRate="fast"
       >
-        <View style={styles.transRow}>
-          {/* Line 1: Month */}
-          <Text style={styles.transMonthText}>October 2025</Text>
+        {transactions.map((group, index) => (
+          <View key={index} style={styles.transRow}>
+            {/* Line 1: Month */}
+            <Text style={styles.transMonthText}>{group.month}</Text>
 
-          <View>
-            {/* Line 2: icon + label (left) and amount (right) */}
-            <View style={styles.transMiddleRow}>
-              <View style={styles.transLabelRow}>
-                <Ionicons
-                  name="arrow-down-outline"
-                  size={18}
-                  style={styles.transIcon}
-                />
-                <Text style={styles.transLabel}>Amount Deposted</Text>
+            {group.items.map((item) => (
+              <View key={item.id}>
+                {/* Line 2: icon + label (left) and amount (right) */}
+                <View style={styles.transMiddleRow}>
+                  <View style={styles.transLabelRow}>
+                    <Ionicons
+                      name="arrow-down-outline"
+                      size={18}
+                      style={styles.transIcon}
+                    />
+                    <Text style={styles.transLabel}>{item.label}</Text>
+                  </View>
+
+                  <Text style={styles.transAmount}>₹{item.amount.toFixed(2)}</Text>
+                </View>
+
+                {/* Line 3: date under the label */}
+                <Text style={styles.transDateMonth}>{item.date}</Text>
               </View>
-
-              <Text style={styles.transAmount}>₹190.90</Text>
-            </View>
-
-            {/* Line 3: date under the label */}
-            <Text style={styles.transDateMonth}>02 Oct 2025</Text>
+            ))}
           </View>
-
-          <View>
-            {/* Line 2: icon + label (left) and amount (right) */}
-            <View style={styles.transMiddleRow}>
-              <View style={styles.transLabelRow}>
-                <Ionicons
-                  name="arrow-down-outline"
-                  size={18}
-                  style={styles.transIcon}
-                />
-                <Text style={styles.transLabel}>Amount Deposted</Text>
-              </View>
-
-              <Text style={styles.transAmount}>₹110.90</Text>
-            </View>
-
-            {/* Line 3: date under the label */}
-            <Text style={styles.transDateMonth}>01 Oct 2025</Text>
-          </View>
-        </View>
-
-        <View style={styles.transRow}>
-          {/* Line 1: Month */}
-          <Text style={styles.transMonthText}>September 2025</Text>
-
-          <View>
-            {/* Line 2: icon + label (left) and amount (right) */}
-            <View style={styles.transMiddleRow}>
-              <View style={styles.transLabelRow}>
-                <Ionicons
-                  name="arrow-down-outline"
-                  size={18}
-                  style={styles.transIcon}
-                />
-                <Text style={styles.transLabel}>Amount Deposted</Text>
-              </View>
-
-              <Text style={styles.transAmount}>₹1908.90</Text>
-            </View>
-
-            {/* Line 3: date under the label */}
-            <Text style={styles.transDateMonth}>02 Sept 2025</Text>
-          </View>
-
-          <View>
-            {/* Line 2: icon + label (left) and amount (right) */}
-            <View style={styles.transMiddleRow}>
-              <View style={styles.transLabelRow}>
-                <Ionicons
-                  name="arrow-down-outline"
-                  size={18}
-                  style={styles.transIcon}
-                />
-                <Text style={styles.transLabel}>Amount Deposted</Text>
-              </View>
-
-              <Text style={styles.transAmount}>₹127.90</Text>
-            </View>
-
-            {/* Line 3: date under the label */}
-            <Text style={styles.transDateMonth}>01 Sept 2025</Text>
-          </View>
-        </View>
+        ))}
       </ScrollView>
     </LinearGradient>
   );
@@ -146,6 +100,12 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: "#fff",
     padding: 20,
+    marginBottom: Spacing.md,
+  },
+
+  centerContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   // NEW: middle row – label+icon left, amount right

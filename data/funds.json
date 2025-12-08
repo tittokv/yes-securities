@@ -1,0 +1,47 @@
+{
+    "totalAvailableLimit": 10909,
+    "fundHistory": {
+        "totalLimit": {
+            "value": 157,
+            "breakdown": [
+                {
+                    "label": "Ledger Balance",
+                    "value": 2330
+                },
+                {
+                    "label": "Fund Hold",
+                    "value": 0
+                },
+                {
+                    "label": "Receivables",
+                    "value": 0
+                },
+                {
+                    "label": "Adhoc Limit",
+                    "value": 0
+                },
+                {
+                    "label": "Collateral Limit",
+                    "value": 0
+                }
+            ]
+        },
+        "totalUtilization": {
+            "value": 146,
+            "breakdown": [
+                {
+                    "label": "Equity Delivery",
+                    "value": 123
+                },
+                {
+                    "label": "Equity Intraday",
+                    "value": 0
+                },
+                {
+                    "label": "Margin Funding (MTF)",
+                    "value": 5
+                }
+            ]
+        }
+    }
+}

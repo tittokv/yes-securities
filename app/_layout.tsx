@@ -4,9 +4,9 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors } from '@/constants/colors';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: 'index',
 };
 
@@ -22,7 +22,7 @@ export default function RootLayout() {
             headerShown: true,
             title: 'Nidhi Admin SDK',
             headerStyle: {
-              backgroundColor: '#347ab6',
+              backgroundColor: Colors.primary,
             },
             headerTintColor: '#ffffff',
             headerTitleStyle: {

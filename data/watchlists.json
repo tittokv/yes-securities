@@ -1,0 +1,132 @@
+{
+    "watchlists": [
+        {
+            "key": "mashhoods",
+            "label": "Mashhoods",
+            "stocks": [
+                {
+                    "symbol": "BANKBARODA",
+                    "exchange": "BSECM",
+                    "price": "262.50",
+                    "change": "₹-4.00",
+                    "changePercent": "-1.50%",
+                    "isPositive": false
+                },
+                {
+                    "symbol": "BANKBARODA",
+                    "exchange": "NSECM",
+                    "price": "262.35",
+                    "change": "₹-4.25",
+                    "changePercent": "-1.59%",
+                    "isPositive": false
+                },
+                {
+                    "symbol": "ELECTCAST",
+                    "exchange": "NSECM",
+                    "price": "93.36",
+                    "change": "₹-0.97",
+                    "changePercent": "-1.03%",
+                    "isPositive": false
+                },
+                {
+                    "symbol": "WIPRO",
+                    "exchange": "NSECM",
+                    "price": "242.59",
+                    "change": "₹0.46",
+                    "changePercent": "0.19%",
+                    "isPositive": true
+                },
+                {
+                    "symbol": "IDEA",
+                    "exchange": "NSECM",
+                    "price": "8.62",
+                    "change": "₹0.15",
+                    "changePercent": "1.77%",
+                    "isPositive": true
+                },
+                {
+                    "symbol": "729NHAI26",
+                    "exchange": "NSECM",
+                    "price": "1010.00",
+                    "change": "₹0.00",
+                    "changePercent": "0.00%",
+                    "isPositive": true
+                },
+                {
+                    "symbol": "BANKBEES",
+                    "exchange": "NSECM",
+                    "price": "580.80",
+                    "change": "₹0.34",
+                    "changePercent": "0.06%",
+                    "isPositive": true
+                },
+                {
+                    "symbol": "RELIANCE",
+                    "exchange": "NSECM",
+                    "price": "1382.00",
+                    "change": "₹7.00",
+                    "changePercent": "0.51%",
+                    "isPositive": true
+                }
+            ]
+        },
+        {
+            "key": "streamingtest",
+            "label": "streamingtest",
+            "stocks": [
+                {
+                    "symbol": "TCS",
+                    "exchange": "NSECM",
+                    "price": "3,678.90",
+                    "change": "₹45.30",
+                    "changePercent": "1.23%",
+                    "isPositive": true
+                },
+                {
+                    "symbol": "INFY",
+                    "exchange": "NSECM",
+                    "price": "1,542.30",
+                    "change": "₹-13.50",
+                    "changePercent": "-0.87%",
+                    "isPositive": false
+                }
+            ]
+        },
+        {
+            "key": "needtobuy",
+            "label": "Needtobuy",
+            "stocks": [
+                {
+                    "symbol": "HDFCBANK",
+                    "exchange": "NSECM",
+                    "price": "1,678.50",
+                    "change": "₹54.20",
+                    "changePercent": "3.21%",
+                    "isPositive": true
+                },
+                {
+                    "symbol": "ICICIBANK",
+                    "exchange": "NSECM",
+                    "price": "987.65",
+                    "change": "₹-14.50",
+                    "changePercent": "-1.45%",
+                    "isPositive": false
+                }
+            ]
+        },
+        {
+            "key": "holdings",
+            "label": "Holdings",
+            "stocks": [
+                {
+                    "symbol": "ADANIPORTS",
+                    "exchange": "NSECM",
+                    "price": "745.20",
+                    "change": "₹12.30",
+                    "changePercent": "1.68%",
+                    "isPositive": true
+                }
+            ]
+        }
+    ]
+}

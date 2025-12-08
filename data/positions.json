@@ -1,0 +1,76 @@
+{
+    "today": {
+        "summary": {
+            "overallPL": 190.90
+        },
+        "stocks": [
+            {
+                "id": "1",
+                "name": "TODAY ICIIC",
+                "avgPrice": 6267.51,
+                "quantity": 12.0,
+                "invested": 6267.51,
+                "current": 584.58,
+                "profitLoss": -5684.22,
+                "profitLossPercent": -90.69
+            },
+            {
+                "id": "2",
+                "name": "BCL INDUSTRIES LIMITED",
+                "avgPrice": 440.8,
+                "quantity": 8.0,
+                "invested": 440.8,
+                "current": 39.98,
+                "profitLoss": -401.69,
+                "profitLossPercent": -91.13
+            },
+            {
+                "id": "3",
+                "name": "CPSE ETF",
+                "avgPrice": 3375.11,
+                "quantity": 34.0,
+                "invested": 3375.11,
+                "current": 92.39,
+                "profitLoss": -3282.72,
+                "profitLossPercent": -97.26
+            }
+        ]
+    },
+    "overall": {
+        "summary": {
+            "overallPL": 190.90
+        },
+        "stocks": [
+            {
+                "id": "1",
+                "name": "ACL INDUSTRIES LIMITED",
+                "avgPrice": 6267.51,
+                "quantity": 12.0,
+                "invested": 6267.51,
+                "current": 584.58,
+                "profitLoss": -5684.22,
+                "profitLossPercent": -90.69
+            },
+            {
+                "id": "2",
+                "name": "BCL INDUSTRIES LIMITED",
+                "avgPrice": 440.8,
+                "quantity": 8.0,
+                "invested": 440.8,
+                "current": 39.98,
+                "profitLoss": -401.69,
+                "profitLossPercent": -91.13
+            },
+            {
+                "id": "3",
+                "name": "CPSE ETF",
+                "avgPrice": 3375.11,
+                "quantity": 34.0,
+                "invested": 3375.11,
+                "current": 92.39,
+                "profitLoss": -3282.72,
+                "profitLossPercent": -97.26
+            }
+        ]
+    }
+}
