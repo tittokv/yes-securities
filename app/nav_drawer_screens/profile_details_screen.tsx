@@ -4,15 +4,39 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter, Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { TabView, Tab } from '@/components/ui/TabView';
+import { ClientInformation } from '@/components/profile/ClientInformation';
+import { BankAccountDetails } from '@/components/profile/BankAccountDetails';
+import { NomineeDetails } from '@/components/profile/NomineeDetails';
+import { GradientColors } from '@/constants/colors';
+import { Spacing } from '@/constants/typography';
 
 export default function ProfileDetailsScreen() {
     const router = useRouter();
+
+    const tabs: Tab[] = [
+        {
+            key: 'ClientInformation',
+            label: 'Client Info',
+            content: <ClientInformation />,
+        },
+        {
+            key: 'BankAccountDetails',
+            label: 'Bank Details',
+            content: <BankAccountDetails />,
+        },
+        {
+            key: 'NomineeDetails',
+            label: 'Nominee',
+            content: <NomineeDetails />,
+        },
+    ];
 
     return (
         <>
             <Stack.Screen options={{ headerShown: false }} />
             <SafeAreaView style={styles.safeArea} edges={['top']}>
-                <LinearGradient colors={['#f8fafc', '#e0f2fe']} style={styles.container}>
+                <LinearGradient colors={GradientColors.background} style={styles.container}>
                     {/* Header */}
                     <View style={styles.header}>
                         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
@@ -22,11 +46,9 @@ export default function ProfileDetailsScreen() {
                         <View style={styles.placeholder} />
                     </View>
 
-                    {/* Content */}
-                    <View style={styles.content}>
-                        <Ionicons name="person-circle-outline" size={80} color="#347ab6" />
-                        <Text style={styles.screenName}>Profile Details Screen</Text>
-                        <Text style={styles.subtitle}>Manage your account</Text>
+                    {/* Tab Content */}
+                    <View style={styles.tabWrapper}>
+                        <TabView tabs={tabs} defaultTab="ClientInformation" />
                     </View>
                 </LinearGradient>
             </SafeAreaView>
@@ -63,23 +85,9 @@ const styles = StyleSheet.create({
     placeholder: {
         width: 40,
     },
-    content: {
+    tabWrapper: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 40,
-    },
-    screenName: {
-        fontSize: 24,
-        fontWeight: '700',
-        color: '#1e293b',
-        marginTop: 20,
-        textAlign: 'center',
-    },
-    subtitle: {
-        fontSize: 16,
-        color: '#64748b',
-        marginTop: 8,
-        textAlign: 'center',
+        paddingTop: Spacing.md,
     },
 });
+

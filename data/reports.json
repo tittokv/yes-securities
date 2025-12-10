@@ -1,0 +1,144 @@
+{
+    "categories": [
+        {
+            "id": "stocks",
+            "name": "Stocks",
+            "reports": [
+                {
+                    "id": "capital-gain-loss",
+                    "title": "Capital Gain/Loss",
+                    "description": "A segment-wise statement of your realized gains & losses",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": true,
+                    "hasDateRangeFilter": true
+                },
+                {
+                    "id": "combined-ledger",
+                    "title": "Combined Ledger",
+                    "description": "A detailed statement of all monetary transactions, settlements & charges along with running balance",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": false,
+                    "hasDateRangeFilter": true
+                },
+                {
+                    "id": "trade-summary",
+                    "title": "Trade Summary",
+                    "description": "A detailed statement of all trades done in your trading account",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": true,
+                    "hasDateRangeFilter": true
+                },
+                {
+                    "id": "brokerage-charges",
+                    "title": "Brokerage & Charges",
+                    "description": "A statement of brokerage and other charges levied for transaction done across segments",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": false,
+                    "hasDateRangeFilter": true
+                },
+                {
+                    "id": "contract-notes",
+                    "title": "Contract Notes",
+                    "description": "A legal record of all trades executed on a particular trading day inclusive of all charges & taxes as per SEBI guidelines",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": false,
+                    "hasDateRangeFilter": true
+                },
+                {
+                    "id": "fund-transfer-statement",
+                    "title": "Fund Transfer Statement",
+                    "description": "A day-wise report of all inward and outward fund transfers between your linked bank account and your trading account",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": false,
+                    "hasDateRangeFilter": true
+                },
+                {
+                    "id": "holdings",
+                    "title": "Holdings",
+                    "description": "A detailed, category-wise report of all your holdings",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": false,
+                    "hasDateRangeFilter": false
+                },
+                {
+                    "id": "tax-pl-statement",
+                    "title": "Tax P&L Statement",
+                    "description": "A comprehensive statement for tax filing purposes",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": true,
+                    "hasDateRangeFilter": true
+                }
+            ]
+        },
+        {
+            "id": "mutual-funds",
+            "name": "Mutual Funds",
+            "reports": [
+                {
+                    "id": "mf-holdings",
+                    "title": "MF Holdings",
+                    "description": "A detailed report of all your mutual fund holdings",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": false,
+                    "hasDateRangeFilter": false
+                },
+                {
+                    "id": "mf-transactions",
+                    "title": "MF Transactions",
+                    "description": "A statement of all mutual fund transactions",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": false,
+                    "hasDateRangeFilter": true
+                },
+                {
+                    "id": "mf-capital-gains",
+                    "title": "MF Capital Gains",
+                    "description": "Capital gains report for mutual fund investments",
+                    "icon": "document-text-outline",
+                    "hasSegmentFilter": false,
+                    "hasDateRangeFilter": true
+                }
+            ]
+        }
+    ],
+    "segments": [
+        {
+            "id": "equity",
+            "label": "Equity"
+        },
+        {
+            "id": "commodity",
+            "label": "Commodity"
+        },
+        {
+            "id": "currency",
+            "label": "Currency"
+        },
+        {
+            "id": "fno",
+            "label": "F&O"
+        }
+    ],
+    "dateRanges": [
+        {
+            "id": "current-fy-25-26",
+            "label": "Current FY(25-26)"
+        },
+        {
+            "id": "last-fy-24-25",
+            "label": "Last FY(24-25)"
+        },
+        {
+            "id": "last-month",
+            "label": "Last Month"
+        },
+        {
+            "id": "last-quarter",
+            "label": "Last Quarter"
+        },
+        {
+            "id": "custom",
+            "label": "Custom Range"
+        }
+    ]
+}

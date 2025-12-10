@@ -1,8 +1,4 @@
-/**
- * IPO Service
- * 
- * Handles all IPO-related data operations.
- */
+//All IPO services here 
 
 import ipoData from '@/data/ipo.json';
 
@@ -30,23 +26,13 @@ export interface IPOSummary {
 }
 
 class IPOService {
-    /**
-     * Get all IPO applications
-     * 
-     * Future API integration:
-     * return apiClient.get<IPOData>('/ipo/applications');
-     */
+    //getinng all IPO
     async getApplications(): Promise<IPOApplication[]> {
         await new Promise(resolve => setTimeout(resolve, 300));
         return ipoData.applications as IPOApplication[];
     }
 
-    /**
-     * Get IPO summary statistics
-     * 
-     * Future API integration:
-     * return apiClient.get<IPOSummary>('/ipo/summary');
-     */
+    //geting IPO summary here 
     async getSummary(): Promise<IPOSummary> {
         await new Promise(resolve => setTimeout(resolve, 200));
         const apps = ipoData.applications as IPOApplication[];
@@ -59,12 +45,7 @@ class IPOService {
         };
     }
 
-    /**
-     * Get application details by ID
-     * 
-     * Future API integration:
-     * return apiClient.get<IPOApplication>(`/ipo/applications/${id}`);
-     */
+    //geting application by id here 
     async getApplicationById(id: string): Promise<IPOApplication | undefined> {
         await new Promise(resolve => setTimeout(resolve, 150));
         const apps = ipoData.applications as IPOApplication[];

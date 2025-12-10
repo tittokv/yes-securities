@@ -20,28 +20,28 @@ const API_TIMEOUT = 30000; // 30 seconds
  * This defines the contract for API calls
  */
 export interface ApiClient {
-    get<T>(endpoint: string, config?: RequestConfig): Promise<T>;
-    post<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T>;
-    put<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T>;
-    delete<T>(endpoint: string, config?: RequestConfig): Promise<T>;
+  get<T>(endpoint: string, config?: RequestConfig): Promise<T>;
+  post<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T>;
+  put<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T>;
+  delete<T>(endpoint: string, config?: RequestConfig): Promise<T>;
 }
 
 export interface RequestConfig {
-    headers?: Record<string, string>;
-    params?: Record<string, any>;
-    timeout?: number;
+  headers?: Record<string, string>;
+  params?: Record<string, any>;
+  timeout?: number;
 }
 
 export interface ApiResponse<T> {
-    data: T;
-    status: number;
-    message?: string;
+  data: T;
+  status: number;
+  message?: string;
 }
 
 export interface ApiError {
-    message: string;
-    status?: number;
-    code?: string;
+  message: string;
+  status?: number;
+  code?: string;
 }
 
 /**
@@ -49,29 +49,29 @@ export interface ApiError {
  * This simulates API calls by returning promises with delays
  */
 class MockApiClient implements ApiClient {
-    private delay(ms: number = 500): Promise<void> {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+  private delay(ms: number = 500): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
-    async get<T>(endpoint: string, config?: RequestConfig): Promise<T> {
-        await this.delay();
-        throw new Error('Mock API: Use service methods that import JSON directly');
-    }
+  async get<T>(endpoint: string, config?: RequestConfig): Promise<T> {
+    await this.delay();
+    throw new Error('Mock API: Use service methods that import JSON directly');
+  }
 
-    async post<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T> {
-        await this.delay();
-        throw new Error('Mock API: POST not implemented in mock mode');
-    }
+  async post<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T> {
+    await this.delay();
+    throw new Error('Mock API: POST not implemented in mock mode');
+  }
 
-    async put<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T> {
-        await this.delay();
-        throw new Error('Mock API: PUT not implemented in mock mode');
-    }
+  async put<T>(endpoint: string, data?: any, config?: RequestConfig): Promise<T> {
+    await this.delay();
+    throw new Error('Mock API: PUT not implemented in mock mode');
+  }
 
-    async delete<T>(endpoint: string, config?: RequestConfig): Promise<T> {
-        await this.delay();
-        throw new Error('Mock API: DELETE not implemented in mock mode');
-    }
+  async delete<T>(endpoint: string, config?: RequestConfig): Promise<T> {
+    await this.delay();
+    throw new Error('Mock API: DELETE not implemented in mock mode');
+  }
 }
 
 /**
@@ -146,19 +146,19 @@ export const apiClient: ApiClient = new MockApiClient();
 
 // Helper function to handle API errors
 export const handleApiError = (error: any): ApiError => {
-    if (error.response) {
-        return {
-            message: error.response.data?.message || 'An error occurred',
-            status: error.response.status,
-            code: error.response.data?.code,
-        };
-    } else if (error.request) {
-        return {
-            message: 'Network error. Please check your connection.',
-        };
-    } else {
-        return {
-            message: error.message || 'An unexpected error occurred',
-        };
-    }
+  if (error.response) {
+    return {
+      message: error.response.data?.message || 'An error occurred',
+      status: error.response.status,
+      code: error.response.data?.code,
+    };
+  } else if (error.request) {
+    return {
+      message: 'Network error. Please check your connection.',
+    };
+  } else {
+    return {
+      message: error.message || 'An unexpected error occurred',
+    };
+  }
 };

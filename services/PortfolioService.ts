@@ -1,9 +1,4 @@
-/**
- * Portfolio Service
- * 
- * Handles all portfolio-related data operations.
- * Currently loads data from local JSON, but ready for API integration.
- */
+//All portfolio services here 
 
 import portfolioData from '@/data/portfolio.json';
 import { StockItem } from '@/types/ipo';
@@ -23,14 +18,9 @@ export interface PortfolioData {
 }
 
 class PortfolioService {
-    /**
-     * Get complete portfolio data including summary and stocks
-     * 
-     * Future API integration:
-     * return apiClient.get<PortfolioData>('/portfolio');
-     */
+    //geting portfolio data here 
     async getPortfolio(): Promise<PortfolioData> {
-        // Simulate API delay
+        //  API delay
         await new Promise(resolve => setTimeout(resolve, 300));
 
         return {
@@ -39,23 +29,13 @@ class PortfolioService {
         };
     }
 
-    /**
-     * Get only portfolio summary
-     * 
-     * Future API integration:
-     * return apiClient.get<PortfolioSummary>('/portfolio/summary');
-     */
+    //geting portfolio summary here 
     async getPortfolioSummary(): Promise<PortfolioSummary> {
         await new Promise(resolve => setTimeout(resolve, 200));
         return portfolioData.summary;
     }
 
-    /**
-     * Get portfolio stocks with optional search filter
-     * 
-     * Future API integration:
-     * return apiClient.get<StockItem[]>('/portfolio/stocks', { params: { search } });
-     */
+    //geting portfolio stocks here 
     async getPortfolioStocks(searchQuery?: string): Promise<StockItem[]> {
         await new Promise(resolve => setTimeout(resolve, 200));
 
@@ -71,17 +51,12 @@ class PortfolioService {
         return stocks;
     }
 
-    /**
-     * Refresh portfolio data (for pull-to-refresh)
-     * 
-     * Future API integration:
-     * return apiClient.post<PortfolioData>('/portfolio/refresh');
-     */
+    //refreshing portfolio data here 
     async refreshPortfolio(): Promise<PortfolioData> {
         await new Promise(resolve => setTimeout(resolve, 500));
         return this.getPortfolio();
     }
 }
 
-// Export singleton instance
+//  singleton instance
 export const portfolioService = new PortfolioService();
