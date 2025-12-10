@@ -1,0 +1,193 @@
+{
+    "capital-gain-loss": {
+        "summary": {
+            "shortTermGainLoss": -50561.29,
+            "longTermGainLoss": 0.00,
+            "intradayGainLoss": 0.14,
+            "charges": 228.69
+        },
+        "transactions": [
+            {
+                "id": "1",
+                "companyName": "VODAFONE IDEA LIMITED",
+                "quantity": 1,
+                "type": "Short Term",
+                "buyAmount": 8.48,
+                "sellAmount": 8.44,
+                "gainLoss": -0.04,
+                "gainLossPercent": -15.93
+            },
+            {
+                "id": "2",
+                "companyName": "VIKAS ECOTECH LIMITED",
+                "quantity": 1,
+                "type": "Short Term",
+                "buyAmount": 2.31,
+                "sellAmount": 2.28,
+                "gainLoss": -0.03,
+                "gainLossPercent": -15.93
+            },
+            {
+                "id": "3",
+                "companyName": "Franklin Industries Limited",
+                "quantity": 1,
+                "type": "Short Term",
+                "buyAmount": 1.68,
+                "sellAmount": 1.64,
+                "gainLoss": -0.03,
+                "gainLossPercent": -15.93
+            },
+            {
+                "id": "4",
+                "companyName": "RELIANCE INDUSTRIES LTD",
+                "quantity": 5,
+                "type": "Short Term",
+                "buyAmount": 1250.50,
+                "sellAmount": 1280.75,
+                "gainLoss": 30.25,
+                "gainLossPercent": 2.42
+            },
+            {
+                "id": "5",
+                "companyName": "TATA CONSULTANCY SERVICES",
+                "quantity": 3,
+                "type": "Long Term",
+                "buyAmount": 3200.00,
+                "sellAmount": 3450.00,
+                "gainLoss": 250.00,
+                "gainLossPercent": 7.81
+            }
+        ]
+    },
+    "trade-summary": {
+        "summary": {
+            "totalTrades": 45,
+            "buyTrades": 23,
+            "sellTrades": 22,
+            "totalTurnover": 125000.50
+        },
+        "transactions": [
+            {
+                "id": "1",
+                "companyName": "INFOSYS LIMITED",
+                "tradeDate": "2025-12-09",
+                "tradeType": "Buy",
+                "quantity": 10,
+                "price": 1450.50,
+                "amount": 14505.00
+            },
+            {
+                "id": "2",
+                "companyName": "HDFC BANK LIMITED",
+                "tradeDate": "2025-12-08",
+                "tradeType": "Sell",
+                "quantity": 5,
+                "price": 1620.75,
+                "amount": 8103.75
+            },
+            {
+                "id": "3",
+                "companyName": "WIPRO LIMITED",
+                "tradeDate": "2025-12-07",
+                "tradeType": "Buy",
+                "quantity": 15,
+                "price": 420.30,
+                "amount": 6304.50
+            }
+        ]
+    },
+    "combined-ledger": {
+        "summary": {
+            "openingBalance": 50000.00,
+            "totalCredits": 25000.00,
+            "totalDebits": 15000.00,
+            "closingBalance": 60000.00
+        },
+        "transactions": [
+            {
+                "id": "1",
+                "date": "2025-12-09",
+                "description": "Fund Transfer - NEFT",
+                "type": "Credit",
+                "amount": 10000.00,
+                "balance": 60000.00
+            },
+            {
+                "id": "2",
+                "date": "2025-12-08",
+                "description": "Trade Settlement",
+                "type": "Debit",
+                "amount": 5000.00,
+                "balance": 50000.00
+            },
+            {
+                "id": "3",
+                "date": "2025-12-07",
+                "description": "Brokerage Charges",
+                "type": "Debit",
+                "amount": 228.50,
+                "balance": 55000.00
+            }
+        ]
+    },
+    "holdings": {
+        "summary": {
+            "totalInvestment": 150000.00,
+            "currentValue": 165000.00,
+            "totalGainLoss": 15000.00,
+            "totalGainLossPercent": 10.00
+        },
+        "transactions": [
+            {
+                "id": "1",
+                "companyName": "RELIANCE INDUSTRIES LTD",
+                "quantity": 50,
+                "avgPrice": 2450.00,
+                "currentPrice": 2550.00,
+                "invested": 122500.00,
+                "currentValue": 127500.00,
+                "gainLoss": 5000.00,
+                "gainLossPercent": 4.08
+            },
+            {
+                "id": "2",
+                "companyName": "TCS LIMITED",
+                "quantity": 10,
+                "avgPrice": 3200.00,
+                "currentPrice": 3500.00,
+                "invested": 32000.00,
+                "currentValue": 35000.00,
+                "gainLoss": 3000.00,
+                "gainLossPercent": 9.38
+            }
+        ]
+    },
+    "brokerage-charges": {
+        "summary": {
+            "totalBrokerage": 1250.50,
+            "totalSTT": 450.25,
+            "totalGST": 225.13,
+            "totalCharges": 1925.88
+        },
+        "transactions": [
+            {
+                "id": "1",
+                "date": "2025-12-09",
+                "description": "Equity Intraday",
+                "brokerage": 50.00,
+                "stt": 20.00,
+                "gst": 9.00,
+                "total": 79.00
+            },
+            {
+                "id": "2",
+                "date": "2025-12-08",
+                "description": "Equity Delivery",
+                "brokerage": 100.00,
+                "stt": 40.00,
+                "gst": 18.00,
+                "total": 158.00
+            }
+        ]
+    }
+}

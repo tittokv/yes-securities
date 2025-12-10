@@ -1,0 +1,29 @@
+{
+    "bankAccountNumber": "002291600040094",
+    "bankBranchIFSC": "YESB0000022",
+    "depository": "NSDL",
+    "panCard": "CLSPS3655D",
+    "instruments": [
+        "FUTIDX",
+        "EQUITY",
+        "FUTSTK",
+        "OPTIDX",
+        "OPTSTK",
+        "MF",
+        "FUTIVX"
+    ],
+    "segments": [
+        "Equity Derivatives",
+        "EquITY",
+        "Mutual Fund"
+    ],
+    "activatedSegments": [
+        "Delivery",
+        "Intraday",
+        "Cover",
+        "Pledge Sell",
+        "Mtf",
+        "SIP Fund"
+    ],
+    "dormantStatus": null
+}

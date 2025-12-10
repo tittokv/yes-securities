@@ -1,8 +1,4 @@
-/**
- * Watchlist Service
- * 
- * Handles all watchlist-related data operations.
- */
+// watchlist services  
 
 import watchlistsData from '@/data/watchlists.json';
 
@@ -26,45 +22,25 @@ export interface WatchlistsData {
 }
 
 class WatchlistService {
-    /**
-     * Get all watchlists
-     * 
-     * Future API integration:
-     * return apiClient.get<Watchlist[]>('/watchlists');
-     */
+    //geting all watchlists  
     async getWatchlists(): Promise<Watchlist[]> {
         await new Promise(resolve => setTimeout(resolve, 300));
         return watchlistsData.watchlists;
     }
 
-    /**
-     * Get a specific watchlist by key/ID
-     * 
-     * Future API integration:
-     * return apiClient.get<Watchlist>(`/watchlists/${key}`);
-     */
+    //geting watchlist by key
     async getWatchlist(key: string): Promise<Watchlist | undefined> {
         await new Promise(resolve => setTimeout(resolve, 200));
         return watchlistsData.watchlists.find(w => w.key === key);
     }
 
-    /**
-     * Add a stock to a watchlist
-     * 
-     * Future API integration:
-     * return apiClient.post('/watchlists/add-stock', { watchlistKey, symbol });
-     */
+    //add stock to watchlist 
     async addStockToWatchlist(watchlistKey: string, symbol: string): Promise<void> {
         await new Promise(resolve => setTimeout(resolve, 400));
         console.log(`Mock: Added ${symbol} to ${watchlistKey}`);
     }
 
-    /**
-     * Remove a stock from a watchlist
-     * 
-     * Future API integration:
-     * return apiClient.post('/watchlists/remove-stock', { watchlistKey, symbol });
-     */
+    //remove stock from watchlist
     async removeStockFromWatchlist(watchlistKey: string, symbol: string): Promise<void> {
         await new Promise(resolve => setTimeout(resolve, 400));
         console.log(`Mock: Removed ${symbol} from ${watchlistKey}`);
